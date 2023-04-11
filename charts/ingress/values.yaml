@@ -2,3 +2,10 @@
 nameOverride: ""
 fullnameOverride: ""
 productionBranch: main
+
+images:
+  app:
+    tag:
+
+securityContext: {}
+podSecurityContext: {}
