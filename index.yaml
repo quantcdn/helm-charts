@@ -10,4 +10,24 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/drupal-0.2.0/drupal-0.2.0.tgz
     version: 0.2.0
-generated: "2023-04-11T01:34:17.338615541Z"
+  ingress:
+  - apiVersion: v2
+    created: "2023-04-11T02:11:44.742979095Z"
+    description: Default Ingress installation chart for Quant Cloud
+    digest: 1750f69bd3e10b6299e8b7f6ff1dc1a2bb900eedad6dc1b971d45678805c90f5
+    name: ingress
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/ingress-0.1.0/ingress-0.1.0.tgz
+    version: 0.1.0
+  node-express:
+  - apiVersion: v2
+    created: "2023-04-11T02:11:44.888420752Z"
+    description: Default Node Express Deployment installation chart for Quant Cloud
+    digest: 7d3ec7a28427af6060d9abe2aa0d7b52ccfc68898d2f26f753079e1699568ab7
+    name: node-express
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/node-express-0.1.0/node-express-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-04-11T02:11:44.888425552Z"
