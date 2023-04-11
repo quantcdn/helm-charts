@@ -31,6 +31,19 @@ entries:
     version: 0.1.0
   node-express:
   - apiVersion: v2
+    created: "2023-04-11T03:29:58.070181832Z"
+    dependencies:
+    - name: ingress
+      repository: https://quantcdn.github.io/helm-charts
+      version: 0.2.0
+    description: Default Node Express Deployment installation chart for Quant Cloud
+    digest: 17215f1c06e300208acd778342d3e05711619172b8cfdaebc89c768f9389adde
+    name: node-express
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/node-express-0.2.0/node-express-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2023-04-11T02:11:44.888420752Z"
     description: Default Node Express Deployment installation chart for Quant Cloud
     digest: 7d3ec7a28427af6060d9abe2aa0d7b52ccfc68898d2f26f753079e1699568ab7
@@ -59,4 +72,4 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/waf-0.1.0/waf-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-11T03:04:30.828993678Z"
+generated: "2023-04-11T03:29:58.070192332Z"
