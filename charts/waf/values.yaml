@@ -1,0 +1,70 @@
+# Default values for quant-waf.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nextHop:
+  port: 80
+  selector: {}
+
+waf:
+  pullPolicy: Always
+  version: ""
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  podSecurityContext: {}
+  securityContext: {}
+  imagePullSecrets: []
+  service:
+    port: 80
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+
+quant:
+  license: ""
+  endpoint: ""
+  key: ""
+  organization: ""
+  project: ""
+
+  errorPages:
+    blocked: |-
+      <html>
+        <h1>Blocked by WAF</h1>
+        <p>Rule was: {{ waf_rule_id }}</p>
+        <p>{{ timestamp }}</p>
+      </html>
+    threshold: |-
+      <html>
+        <h1>Rate limits exceeded.</h1>
+        <p>Your request has been blocked as we have detected traffic that exceeds rate limiting thresholds.</p>
+        <p>{{ timestamp }}</p>
+        <p>{{ request_id }}</p>
+      </html>
+
+  config:
+    paranoia: 1
+    mode: "block"
+    logLevel: "standard"
+
+    httpblEnabled: false
+    httpblKey: ""
+    httpblBlockSuspicious: false
+    httpblBlockHarvester: true
+    httpblBlockSpam: true
+    httpblBlockSearchEngine: false
+
+    allowIp: []
+    blockIp: []
+    blockUa: []
+    allowRules: []
+    blockCountry: []
+
+    rules: []
+    thresholds: []

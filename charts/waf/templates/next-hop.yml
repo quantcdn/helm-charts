@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: next-hop-helm
+  labels:
+    {{- include "quant-waf.labels" . | nindent 4 }}
+  namespace: default
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: {{ .Values.nextHop.port | default 80 }}
+  {{- with .Values.nextHop.selector }}
+  selector:
+    {{- toYaml . | nindent 6 }}
+  {{- end }}
+  sessionAffinity: None
+  type: ClusterIP

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "quant-waf.fullname" . }}-config-map
+data:
+  SECTION_PROXY_NAME: quant-waf
+  QUANT_WAF_API: http://127.0.0.01
+  REDIS_HOST: 127.0.0.1
+  PROXY_REGO_KEY: x
+  LIST_KEY_PREFIX: x
+  LIST_KEY_SUFFIX: x

@@ -1,0 +1,18 @@
+apiVersion: v2
+name: waf
+version: 0.1.0
+appVersion: "0.6.0"
+home: https://quantcdn.io
+description: Application firewall deployment for Kubernetes
+icon: https://www.quantcdn.io/themes/custom/quant_theme/quantcdn-logo-dark.svg
+keywords:
+  - firewall
+  - nginx
+sources:
+  - https://github.com/quantcdn/helm-charts
+maintainers:
+  - name: steveworley
+  - name: stooit
+
+
+
