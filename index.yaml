@@ -12,6 +12,15 @@ entries:
     version: 0.2.0
   ingress:
   - apiVersion: v2
+    created: "2023-04-11T03:04:30.582497887Z"
+    description: Default Ingress installation chart for Quant Cloud
+    digest: 799942d8447f9c42fa5a2cafcd550313354e4b97823bd213b51efea299080213
+    name: ingress
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/ingress-0.2.0/ingress-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2023-04-11T02:11:44.742979095Z"
     description: Default Ingress installation chart for Quant Cloud
     digest: 1750f69bd3e10b6299e8b7f6ff1dc1a2bb900eedad6dc1b971d45678805c90f5
@@ -30,4 +39,24 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/node-express-0.1.0/node-express-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-11T02:11:44.888425552Z"
+  waf:
+  - apiVersion: v2
+    appVersion: 0.6.0
+    created: "2023-04-11T03:04:30.828983677Z"
+    description: Application firewall deployment for Kubernetes
+    digest: 8ef798a4299c0093c3b4c4019cd3afa2cebc52d249dd2f32aea7e5b222132511
+    home: https://quantcdn.io
+    icon: https://www.quantcdn.io/themes/custom/quant_theme/quantcdn-logo-dark.svg
+    keywords:
+    - firewall
+    - nginx
+    maintainers:
+    - name: steveworley
+    - name: stooit
+    name: waf
+    sources:
+    - https://github.com/quantcdn/helm-charts
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/waf-0.1.0/waf-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-04-11T03:04:30.828993678Z"
