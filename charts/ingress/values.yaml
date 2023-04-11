@@ -1,0 +1,4 @@
+# Values for the ingress service.
+nameOverride: ""
+fullnameOverride: ""
+productionBranch: main

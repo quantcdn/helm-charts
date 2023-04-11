@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    timestamp: {{ now | quote }}
+  name: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+  labels:
+    app: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+    version: {{ .Values.appVersion }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+  template:
+    metadata:
+      annotations:
+        timestamp: {{ now | quote }}
+      labels:
+        app: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+        version: {{ .Values.appVersion }}
+    spec:
+      containers:
+      - name: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+        image: "{{ .Values.images.app.repository }}:{{ .Values.images.app.tag }}"
+        imagePullPolicy: Always
+        resources:
+          {{- if eq .Values.productionBranch .Values.images.app.tag }}
+          {{- toYaml .Values.images.app.resources | nindent 10 }}
+          {{- else }}
+          {{- toYaml .Values.images.app.devresources | nindent 10 }}
+          {{- end }}
+        ports:
+        - containerPort: {{ .Values.images.app.port }}
+        env:
+          - name: QUANT_PRODUCTION_ENVIRONMENT
+            value: "{{ .Values.productionBranch }}"
+          - name: QUANT_ENVIRONMENT_BRANCH
+            value: "{{ .Values.images.app.tag }}"
+          - name: QUANT_ENVIRONMENT_TYPE
+            {{- if eq .Values.productionBranch .Values.images.app.tag }}
+            value: "production"
+            {{- else }}
+            value: "development"
+            {{- end }}
+      imagePullSecrets:
+        - name: quant-cloud
