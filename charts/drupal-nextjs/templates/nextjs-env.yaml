@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.images.nextjs.name }}-config-{{ .Values.appEnvrionment }}
+data:
+    NEXT_PUBLIC_DRUPAL_BASE_URL: {{ .Values.images.nextjs.config.drupal_base | default "http://localhost" }}
+    NEXT_IMAGE_DOMAIN: {{ .Values.images.nextjs.config.image_domain | default "localhost" }}
+    DRUPAL_PREVIEW_SECRET: {{ .Values.secrets.drupal.preview_secret }}
+    DRUPAL_REVALIDATE_SECRET: {{ .Values.secrets.drupal.revalidate_secret }}
