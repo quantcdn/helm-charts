@@ -6,13 +6,16 @@ replicaCount: 1
 nameOverride: ""
 fullnameOverride: ""
 
+appVersion: main
+appEnvrionment: main
+
 images:
   pullPolicy: Always
   drupal:
     name: drupal
     sshname: drupal-ssh
     repository: registry.quant.cloud/org/repo
-    tag: edge
+    tag: latest
     port: 80
     sshport: 22
     resources:
@@ -41,6 +44,9 @@ images:
     repository: nextjs
     tag: latest
     port: 3000
+    config:
+      drupal_base:
+      image_domain:
     resources:
       limits:
         cpu: 1000m
@@ -122,3 +128,6 @@ secrets:
   redis:
     host: localhost
   authorized_keys:
+  drupal:
+    preview_secret: secret
+    revalidate_secret: secret

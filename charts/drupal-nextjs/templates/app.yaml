@@ -1,9 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: drupal
+  name: {{ include "quant.name" . }}
+  annotations:
+    timestamp: {{ now | quote }}
   labels:
-    app: drupal
+    app: {{ include "quant.name" . }}
+    version: {{ .Values.appVersion }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -11,7 +14,7 @@ spec:
   selector:
     matchLabels:
       {{- include "quant.selectorLabels" . | nindent 6 }}
-      app: drupal
+      app: {{ include "quant.name" . }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -20,7 +23,7 @@ spec:
       {{- end }}
       labels:
         {{- include "quant.selectorLabels" . | nindent 8 }}
-        app: {{ .Values.images.drupal.name }}
+        app: {{ include "quant.name" . }}
         version: {{ .Values.appVersion }}
     spec:
       imagePullSecrets:
@@ -48,7 +51,7 @@ spec:
         - name: {{ .Values.images.drupal.name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.images.drupal.repository }}:{{ .Values.images.drupal.tag }}"
+          image: "{{ .Values.images.drupal.repository }}:{{ .Values.tag }}"
           imagePullPolicy: {{ .Values.images.drupal.pullPolicy | default .Values.images.pullPolicy }}
           ports:
             - name: {{ .Values.images.drupal.name }}
@@ -75,7 +78,7 @@ spec:
             timeoutSeconds: 1
           envFrom:
             - configMapRef:
-                name: drupal-config
+                name: {{ .Values.images.drupal.name }}-config
           env:
             - name: APACHE_RUN_USER
               value: "nobody"
@@ -115,7 +118,9 @@ spec:
               port: {{ .Values.images.nextjs.port }}
           envFrom:
             - configMapRef:
-                name: drupal-config
+                name: {{ .Values.images.drupal.name }}-config
+            - configMapRef:
+                name: {{ .Values.images.nextjs.name }}-config
           env:
             - name: NEXT_PUBLIC_DRUPAL_BASE_URL
               value: "http://localhost"
@@ -142,6 +147,8 @@ spec:
             - redis-server
             - --save 60 1
             - --loglevel warning
+            - --maxmemory-policy {{ .Values.images.redis.cachePolicy | default "volatile-lru" }}
+            - --maxmemory {{ .Values.images.redis.mamxmemory | default "419430400" }}
           imagePullPolicy: {{ .Values.images.redis.pullPolicy | default .Values.images.pullPolicy }}
           ports:
             - name: {{ .Values.images.redis.name }}
