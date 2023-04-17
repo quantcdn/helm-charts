@@ -28,7 +28,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "stooit/quant-waf:{{ .Values.waf.version | default .Chart.AppVersion }}"
+          image: "registry.quant.cloud/quant-public/quant-waf:{{ .Values.waf.version | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.waf.pullPolicy }}
           volumeMounts:
             - mountPath: /opt/proxy_config
