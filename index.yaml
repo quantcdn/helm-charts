@@ -54,6 +54,25 @@ entries:
     version: 0.1.0
   waf:
   - apiVersion: v2
+    appVersion: 0.7.0
+    created: "2023-04-17T08:44:59.430163302Z"
+    description: Application firewall deployment for Kubernetes
+    digest: 810e753f05a1baf64ec6ff5cabad9cd98ebfccf095dca257b8fb0b004a8f36a7
+    home: https://quantcdn.io
+    icon: https://www.quantcdn.io/themes/custom/quant_theme/quantcdn-logo-dark.svg
+    keywords:
+    - firewall
+    - nginx
+    maintainers:
+    - name: steveworley
+    - name: stooit
+    name: waf
+    sources:
+    - https://github.com/quantcdn/helm-charts
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/waf-0.2.0/waf-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 0.6.0
     created: "2023-04-11T03:04:30.828983677Z"
     description: Application firewall deployment for Kubernetes
@@ -72,4 +91,4 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/waf-0.1.0/waf-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-11T03:29:58.070192332Z"
+generated: "2023-04-17T08:44:59.430173302Z"
