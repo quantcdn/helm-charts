@@ -74,7 +74,7 @@ spec:
             timeoutSeconds: 1
           envFrom:
             - configMapRef:
-                name: drupal-config
+                name: {{ .Values.configName | default "drupal-config" }}
           env:
             - name: APACHE_RUN_USER
               value: "nobody"
@@ -137,7 +137,7 @@ spec:
               port: {{ .Values.images.redis.port }}
           envFrom:
             - configMapRef:
-                name: drupal-config
+                name: {{ .Values.configName | default "drupal-config" }}
           {{- if eq .Values.productionBranch .Values.images.app.tag }}
           volumeMounts:
             - name: redis-data
