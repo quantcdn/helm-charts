@@ -6,7 +6,6 @@ replicaCount: 1
 nameOverride: ""
 fullnameOverride: ""
 productionBranch: main
-configName: drupal-config
 
 images:
   pullPolicy: Always
@@ -109,9 +108,9 @@ ingress:
 # It is recommended to use it with quotes.
 appVersion: "0.1.0"
 
-# Secrets
-# Manage app secrets with kubernetes rather than committing
-# in the codebase itself.
+appEnvironment: main
+
+configName: 
 secrets:
   registry:
     user:
