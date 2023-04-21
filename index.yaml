@@ -1,5 +1,15 @@
 apiVersion: v1
 entries:
+  config:
+  - apiVersion: v2
+    created: "2023-04-21T01:31:44.32127691Z"
+    description: Default configuration setup chart for Quant Cloud
+    digest: 3283df8a27a037956889742a2c1e5e02f5e4a8ecc15619f628d466b9f88dbefd
+    name: config
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/config-0.1.1/config-0.1.1.tgz
+    version: 0.1.1
   drupal:
   - apiVersion: v2
     created: "2023-04-21T01:25:04.424270439Z"
@@ -147,4 +157,4 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/waf-0.1.0/waf-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-21T01:25:04.424295539Z"
+generated: "2023-04-21T01:31:44.32129811Z"
