@@ -74,7 +74,7 @@ spec:
             timeoutSeconds: 1
           envFrom:
             - configMapRef:
-                name: {{ .Values.configName | default "drupal-config" }}
+                name: "drupal-config-{{ .Values.appEnvironment }}"
           env:
             - name: APACHE_RUN_USER
               value: "nobody"
