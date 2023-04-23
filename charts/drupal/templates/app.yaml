@@ -137,7 +137,7 @@ spec:
               port: {{ .Values.images.redis.port }}
           envFrom:
             - configMapRef:
-                name: {{ .Values.configName | default "drupal-config" }}
+                name: "drupal-config-{{ .Values.appEnvironment }}"
           {{- if eq .Values.productionBranch .Values.images.app.tag }}
           volumeMounts:
             - name: redis-data
