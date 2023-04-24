@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"-hpa
+  name: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"-hpa
   labels:
-    app: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+    app: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+    name: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
