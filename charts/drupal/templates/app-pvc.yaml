@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: "drupal-pvc-{{ .Values.images.app.tag }}"
+  name: "drupal-pvc-{{ .Values.appEnvironment }}"
 spec:
   storageClassName: nfs-client
   accessModes:
