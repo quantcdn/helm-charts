@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: location-optimizer
+  namespace: default
+data:
+  strategy:
+  {{- if eq .Values.region "us" }}
+  |
+    {
+      "strategy":"SolverServiceV1",
+      "params": {
+        "policy": "static",
+        "mustInclude": [
+            {"locationcode":"lax"}
+        ],
+        "chooseFrom": ["well-known-egress-ips"]
+      }
+    }
+  {{- else }}
+  |
+    {
+      "strategy":"SolverServiceV1",
+      "params": {
+        "policy": "dynamic",
+        "chooseFrom": ["well-known-egress-ips"]
+      }
+    }
