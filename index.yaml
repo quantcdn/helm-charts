@@ -22,6 +22,15 @@ entries:
     version: 0.1.1
   drupal:
   - apiVersion: v2
+    created: "2023-04-27T23:16:29.399737366Z"
+    description: Default Drupal installation chart for Quant Cloud
+    digest: 6b7015f886f9a11f3c62b83a935019dbb7b06de5459c105b32a856b8041ad3d9
+    name: drupal
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/drupal-0.3.4/drupal-0.3.4.tgz
+    version: 0.3.4
+  - apiVersion: v2
     created: "2023-04-27T23:01:52.483159213Z"
     description: Default Drupal installation chart for Quant Cloud
     digest: 0ddfda46d766068310a85806b099090b67ad56e045a41ad004c1ae9045843c86
@@ -216,4 +225,4 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/waf-0.1.0/waf-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-27T23:01:52.483191113Z"
+generated: "2023-04-27T23:16:29.399817268Z"
