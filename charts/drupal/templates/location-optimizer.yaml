@@ -14,7 +14,7 @@ data:
         "policy": "static",
         "mustInclude": [
             {"locationcode":"sea", "provider": "lumen"}
-        ]
+        ],
         "minimumLocations": 1,
         "maximumLocations": 1
       }
