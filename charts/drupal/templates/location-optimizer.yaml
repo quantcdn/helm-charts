@@ -13,7 +13,7 @@ data:
       "params": {
         "policy": "static",
         "mustInclude": [
-            {"locationcode":"lax", "provider": "lumen"}
+            {"locationcode":"sea", "provider": "lumen"}
         ]
       }
     }
