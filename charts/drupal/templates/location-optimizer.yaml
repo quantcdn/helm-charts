@@ -12,9 +12,8 @@ data:
       "params": {
         "policy": "static",
         "mustInclude": [
-            {"locationcode":"lax"}
-        ],
-        "chooseFrom": ["well-known-egress-ips"]
+            {"locationcode":"lax", "provider": "lumen"}
+        ]
       }
     }
   {{- else }}
