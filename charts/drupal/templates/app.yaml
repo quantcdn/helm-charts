@@ -31,12 +31,9 @@ spec:
           configMap:
             name: authorized-keys-{{ .Values.appEnvironment }}
             defaultMode: 384
-        - name: {{ .Values.images.drupal.name }}-data
+        - name: drupal-data
           persistentVolumeClaim:
             claimName: "{{ .Values.images.drupal.name }}-pvc-{{ .Values.appEnvironment }}"
-        - name: {{ .Values.images.nextjs.name }}-data
-          persistentVolumeClaim:
-            claimName: "{{ .Values.images.nextjs.name }}-pvc-{{ .Values.appEnvironment }}"
         {{- if and (eq .Values.productionBranch .Values.appEnvironment) (.Values.images.redis.enabled)  }}
         - name: redis-data
           persistentVolumeClaim:
