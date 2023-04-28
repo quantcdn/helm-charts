@@ -13,7 +13,7 @@ spec:
       protocol: TCP
       targetPort: 80
     selector:
-        app: drupal
+        app: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
     sessionAffinity: None
     type: ClusterIP
 status:
