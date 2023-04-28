@@ -152,7 +152,7 @@ secrets:
     from_name:
   redis:
     host: localhost
-  authorized_keys:
+  authorized_keys: ""
   drupal:
     preview_secret: secret
     revalidate_secret: secret

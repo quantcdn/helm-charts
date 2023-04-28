@@ -1,8 +1,6 @@
-{{- if eq .Values.productionBranch .Values.appEnvironment }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: authorized-keys-{{ .Values.appEnvironment }}
 data:
   authorized_keys: {{ toYaml .Values.secrets.authorized_keys | indent 2 }}
-{{- end }}

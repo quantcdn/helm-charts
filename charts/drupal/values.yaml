@@ -132,4 +132,4 @@ secrets:
     from_name:
   redis:
     host: localhost
-  authorized_keys:
+  authorized_keys: ""

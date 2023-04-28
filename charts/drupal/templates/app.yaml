@@ -26,22 +26,22 @@ spec:
         - name: quant-cloud
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      # Mounted volumes on production only.
-      {{- if eq .Values.productionBranch .Values.appEnvironment }}
       volumes:
-        - name: authorized-keys-{{ .Values.appEnvironment }}
+        - name: authorized-keys
           configMap:
             name: authorized-keys-{{ .Values.appEnvironment }}
             defaultMode: 384
-        - name: drupal-data-{{ .Values.appEnvironment }}
+        - name: {{ .Values.images.drupal.name }}-data
           persistentVolumeClaim:
-            claimName: "drupal-pvc-{{ .Values.appEnvironment }}"
-        {{- if .Values.images.redis.enabled }}
-        - name: redis-data-{{ .Values.appEnvironment }}
+            claimName: "{{ .Values.images.drupal.name }}-pvc-{{ .Values.appEnvironment }}"
+        - name: {{ .Values.images.nextjs.name }}-data
+          persistentVolumeClaim:
+            claimName: "{{ .Values.images.nextjs.name }}-pvc-{{ .Values.appEnvironment }}"
+        {{- if and (eq .Values.productionBranch .Values.appEnvironment) (.Values.images.redis.enabled)  }}
+        - name: redis-data
           persistentVolumeClaim:
             claimName: "redis-pvc-{{ .Values.appEnvironment }}"
         {{- end }}
-      {{- end }}
       containers:
         ### BEGIN DRUPAL CONTAINER
         - name: "{{ .Values.images.drupal.name }}-{{ .Values.images.app.tag }}"
@@ -85,10 +85,10 @@ spec:
             - name: QUANT_ENVIRONMENT_TYPE
               value: "{{ include "quant.environmentType" . }}"
           volumeMounts:
-            - name: authorized-keys-{{ .Values.appEnvironment }}
+            - name: authorized-keys
               mountPath: /root/.ssh/authorized_keys
               subPath: authorized_keys
-            - name: drupal-data-{{ .Values.appEnvironment }}
+            - name: drupal-data
               mountPath: /opt/drupal/web/sites/default/files
           resources:
             {{- if eq .Values.productionBranch .Values.appEnvironment }}
@@ -134,7 +134,7 @@ spec:
                 name: "drupal-config-{{ .Values.appEnvironment }}"
           {{- if eq .Values.productionBranch .Values.appEnvironment }}
           volumeMounts:
-            - name: redis-data-{{ .Values.appEnvironment }}
+            - name: redis-data
               mountPath: /data
           {{- end }}
           resources:
