@@ -1,6 +1,6 @@
 apiVersion: v2
-name: drupal
-description: Default Drupal installation chart for Quant Cloud
+name: drupal-nextjs
+description: Chart to install Drupal+NextJS to QuantCloud.
 
 # A chart can be either an 'application' or a 'library' chart.
 #

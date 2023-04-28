@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
+  namespace: default
+  labels:
+    app: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
+spec:
+    ports:
+    - name: 80-{{ .Values.images.drupal.port }}
+      port: 80
+      protocol: TCP
+      targetPort: {{ .Values.images.drupal.port }}
+    selector:
+        app: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
+    sessionAffinity: None
+    type: ClusterIP
+status:
+    loadBalancer: {}

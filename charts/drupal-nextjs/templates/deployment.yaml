@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "quant.name" . }}
   annotations:
     timestamp: {{ now | quote }}
+  name: "{{ include "quant.name" . }}-{{ .Values.appEnvironment }}"
   labels:
-    app: {{ include "quant.name" . }}
+    app: "{{ include "quant.name" . }}-{{ .Values.appEnvironment }}"
     version: {{ .Values.appVersion }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
@@ -14,7 +14,7 @@ spec:
   selector:
     matchLabels:
       {{- include "quant.selectorLabels" . | nindent 6 }}
-      app: {{ include "quant.name" . }}
+      app: "{{ include "quant.name" . }}-{{ .Values.appEnvironment }}"
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -23,7 +23,7 @@ spec:
       {{- end }}
       labels:
         {{- include "quant.selectorLabels" . | nindent 8 }}
-        app: {{ include "quant.name" . }}
+        app: "{{ include "quant.name" . }}-{{ .Values.appEnvironment }}"
         version: {{ .Values.appVersion }}
     spec:
       imagePullSecrets:
@@ -33,26 +33,26 @@ spec:
       volumes:
         - name: authorized-keys
           configMap:
-            name: authorized-keys
+            name: authorized-keys-{{ .Values.appEnvironment }}
             defaultMode: 384
-        - name: drupal-data
+        - name: {{ .Values.images.drupal.name }}-data
           persistentVolumeClaim:
-            claimName: drupal-pvc
-        - name: nextjs-data
+            claimName: "{{ .Values.images.drupal.name }}-pvc-{{ .Values.appEnvironment }}"
+        - name: {{ .Values.images.nextjs.name }}-data
           persistentVolumeClaim:
-            claimName: nextjs-pvc
-        {{- if .Values.images.redis.enabled }}
+            claimName: "{{ .Values.images.nextjs.name }}-pvc-{{ .Values.appEnvironment }}"
+        {{- if and (eq .Values.productionBranch .Values.appEnvironment) (.Values.images.redis.enabled)  }}
         - name: redis-data
           persistentVolumeClaim:
-            claimName: redis-pvc
+            claimName: "redis-pvc-{{ .Values.appEnvironment }}"
         {{- end }}
       containers:
         ### BEGIN DRUPAL CONTAINER
-        - name: {{ .Values.images.drupal.name }}
+        - name: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.images.drupal.repository }}:{{ .Values.tag }}"
-          imagePullPolicy: {{ .Values.images.drupal.pullPolicy | default .Values.images.pullPolicy }}
+          image: "{{ .Values.images.drupal.repository }}:{{ .Values.images.drupal.tag }}"
+          imagePullPolicy: {{ .Values.images.drupal.pullPolicy | default "Always" }}
           ports:
             - name: {{ .Values.images.drupal.name }}
               containerPort: {{ .Values.images.drupal.port }}
@@ -78,27 +78,28 @@ spec:
             timeoutSeconds: 1
           envFrom:
             - configMapRef:
-                name: {{ .Values.images.drupal.name }}-config
-          env:
-            - name: APACHE_RUN_USER
-              value: "nobody"
+                name: "{{ .Values.images.drupal.name }}-config-{{ .Values.appEnvironment }}"
           volumeMounts:
             - name: authorized-keys
               mountPath: /root/.ssh/authorized_keys
               subPath: authorized_keys
-            - name: drupal-data
+            - name: {{ .Values.images.drupal.name }}-data
               mountPath: /opt/drupal/web/sites/default/files
           resources:
+            {{- if eq .Values.productionBranch .Values.appEnvironment }}
             {{- toYaml .Values.images.drupal.resources | nindent 12 }}
+            {{- else }}
+            {{- toYaml .Values.images.drupal.devresources | nindent 12 }}
+            {{- end }}
         ### END DRUPAL CONTAINER
         ### BEGIN NEXTJS CONTAINER
-        - name: {{ .Values.images.nextjs.name }}
+        - name: {{ .Values.images.nextjs.name }}-{{ .Values.appEnvironment }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.images.nextjs.repository }}:{{ .Values.images.nextjs.tag }}"
-          imagePullPolicy: {{ .Values.images.nextjs.pullPolicy | default .Values.images.pullPolicy }}
+          imagePullPolicy: {{ .Values.images.nextjs.pullPolicy | default "Always" }}
           ports:
-            - name: {{ .Values.images.nextjs.name }}
+            - name: {{ .Values.images.nextjs.name }}-{{ .Values.appEnvironment }}
               containerPort: {{ .Values.images.nextjs.port }}
               protocol: TCP
           readinessProbe:
@@ -118,28 +119,22 @@ spec:
               port: {{ .Values.images.nextjs.port }}
           envFrom:
             - configMapRef:
-                name: {{ .Values.images.drupal.name }}-config
+                name: "{{ .Values.images.drupal.name }}-config-{{ .Values.appEnvironment }}"
             - configMapRef:
-                name: {{ .Values.images.nextjs.name }}-config
-          env:
-            - name: NEXT_PUBLIC_DRUPAL_BASE_URL
-              value: "http://localhost"
-            - name: NEXT_IMAGE_DOMAIN
-              value: "localhost"
-            ## @todo: Secrets need to pull from chart values/GH secret
-            - name: DRUPAL_PREVIEW_SECRET
-              value: "secret"
-            - name: DRUPAL_REVALIDATE_SECRET
-              value: "secret"
+                name: "{{ .Values.images.nextjs.name }}-config-{{ .Values.appEnvironment }}"
           volumeMounts:
-            - name: nextjs-data
+            - name: {{ .Values.images.nextjs.name }}-data
               mountPath: /app/.next
           resources:
+            {{- if eq .Values.productionBranch .Values.appEnvironment }}
             {{- toYaml .Values.images.nextjs.resources | nindent 12 }}
+            {{- else }}
+            {{- toYaml .Values.images.nextjs.devresources | nindent 12 }}
+            {{- end }}
         ### END NEXTJS CONTAINER
         ### BEGIN REDIS CONTAINER
         {{- if .Values.images.redis.enabled }}
-        - name: {{ .Values.images.redis.name }}
+        - name: {{ .Values.images.redis.name }}-{{ .Values.appEnvironment }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.images.redis.repository }}:{{ .Values.images.redis.tag }}"
@@ -149,9 +144,9 @@ spec:
             - --loglevel warning
             - --maxmemory-policy {{ .Values.images.redis.cachePolicy | default "volatile-lru" }}
             - --maxmemory {{ .Values.images.redis.mamxmemory | default "419430400" }}
-          imagePullPolicy: {{ .Values.images.redis.pullPolicy | default .Values.images.pullPolicy }}
+          imagePullPolicy: {{ .Values.images.redis.pullPolicy | default "Always" }}
           ports:
-            - name: {{ .Values.images.redis.name }}
+            - name: {{ .Values.images.redis.name }}-{{ .Values.appEnvironment }}
               containerPort: {{ .Values.images.redis.port }}
               protocol: TCP
           readinessProbe:
@@ -171,12 +166,18 @@ spec:
               port: {{ .Values.images.redis.port }}
           envFrom:
             - configMapRef:
-                name: drupal-config
+                name: "{{ .Values.images.drupal.name }}-config-{{ .Values.appEnvironment }}"
+          {{- if eq .Values.productionBranch .Values.appEnvironment }}
           volumeMounts:
             - name: redis-data
               mountPath: /data
+          {{- end }}
           resources:
+            {{- if eq .Values.productionBranch .Values.appEnvironment }}
             {{- toYaml .Values.images.redis.resources | nindent 12 }}
+            {{- else }}
+            {{- toYaml .Values.images.redis.devresources | nindent 12 }}
+            {{- end }}
         {{- end }}
         ### END REDIS CONTAINER
       {{- with .Values.nodeSelector }}

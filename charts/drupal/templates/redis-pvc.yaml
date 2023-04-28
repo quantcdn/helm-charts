@@ -1,5 +1,5 @@
 {{- if .Values.images.redis.enabled }}
-{{- if eq .Values.productionBranch .Values.images.app.tag }}
+{{- if eq .Values.productionBranch .Values.appEnvironment }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

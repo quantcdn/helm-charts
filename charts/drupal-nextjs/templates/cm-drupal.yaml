@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.images.drupal.name }}-config--{{ .Values.appEnvrionment }}
+  name: "{{ .Values.images.drupal.name }}-config-{{ .Values.appEnvironment }}"
 data:
     MARIADB_USER: "{{ .Values.secrets.database.username }}"
     MARIADB_PASSWORD: "{{ .Values.secrets.database.password }}"
@@ -15,3 +15,8 @@ data:
     QUANT_SMTP_FROM: "{{ .Values.secrets.smtp.from }}"
     QUANT_SMTP_FROM_NAME: "{{ .Values.secrets.smtp.from_name }}"
     REDIS_HOST: "{{ .Values.secrets.redis.host }}"
+
+    APACHE_RUNE_USER: nobody
+    QUANT_PRODUCTION_ENVIRONMENT: "{{ .Values.productionBranch | default "main" }}"
+    QUANT_ENVIRONMENT_BRANCH: "{{ .Values.appEnvironment }}"
+    QUANT_ENVIRONMENT_TYPE: "{{ include "quant.environmentType" . }}"

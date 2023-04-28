@@ -32,3 +32,11 @@ Create an image pull secret
 {{- define "quant.imagePullSecretValue" }}
 {{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" .Values.secrets.registry.registry (printf "%s:%s" .Values.secrets.registry.user .Values.secrets.registry.token | b64enc) | b64enc }}
 {{- end }}
+
+
+{{/*
+Determine the environment type from values provided.
+*/}}
+{{- define "quant.environmentType" -}}
+{{- if eq .Values.productionBranch .Values.appVersion }}production{{ else }}development{{ end }}
+{{- end }}

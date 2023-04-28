@@ -18,6 +18,15 @@ images:
     tag: latest
     port: 80
     sshport: 22
+    storage: 1Gi
+    devstorage: 200Mi
+    devresources:
+      limits:
+        cpu: 200m
+        memory: 128Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
     resources:
       limits:
         cpu: 800m
@@ -31,6 +40,13 @@ images:
     repository: redis
     tag: latest
     port: 6379
+    devresources:
+      limits:
+        cpu: 200m
+        memory: 128Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
     resources:
       limits:
         cpu: 200m
@@ -44,9 +60,18 @@ images:
     repository: nextjs
     tag: latest
     port: 3000
+    storage: 1Gi
+    devstorage: 200Mi
     config:
       drupal_base:
       image_domain:
+    devresources:
+      limits:
+        cpu: 200m
+        memory: 128Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
     resources:
       limits:
         cpu: 1000m

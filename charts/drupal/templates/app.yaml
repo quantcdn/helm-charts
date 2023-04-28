@@ -27,17 +27,17 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       # Mounted volumes on production only.
-      {{- if eq .Values.productionBranch .Values.images.app.tag }}
+      {{- if eq .Values.productionBranch .Values.appEnvironment }}
       volumes:
-        - name: authorized-keys
+        - name: authorized-keys-{{ .Values.appEnvironment }}
           configMap:
-            name: authorized-keys
+            name: authorized-keys-{{ .Values.appEnvironment }}
             defaultMode: 384
-        - name: drupal-data
+        - name: drupal-data-{{ .Values.appEnvironment }}
           persistentVolumeClaim:
             claimName: "drupal-pvc-{{ .Values.appEnvironment }}"
         {{- if .Values.images.redis.enabled }}
-        - name: redis-data
+        - name: redis-data-{{ .Values.appEnvironment }}
           persistentVolumeClaim:
             claimName: "redis-pvc-{{ .Values.appEnvironment }}"
         {{- end }}
@@ -83,21 +83,15 @@ spec:
             - name: QUANT_ENVIRONMENT_BRANCH
               value: "{{ .Values.images.app.tag }}"
             - name: QUANT_ENVIRONMENT_TYPE
-              {{- if eq .Values.productionBranch .Values.images.app.tag }}
-              value: "production"
-              {{- else }}
-              value: "development"
-              {{- end }}
-          {{- if eq .Values.productionBranch .Values.images.app.tag }}
+              value: "{{ include "quant.environmentType" . }}"
           volumeMounts:
-            - name: authorized-keys
+            - name: authorized-keys-{{ .Values.appEnvironment }}
               mountPath: /root/.ssh/authorized_keys
               subPath: authorized_keys
-            - name: drupal-data
+            - name: drupal-data-{{ .Values.appEnvironment }}
               mountPath: /opt/drupal/web/sites/default/files
-          {{- end }}
           resources:
-            {{- if eq .Values.productionBranch .Values.images.app.tag }}
+            {{- if eq .Values.productionBranch .Values.appEnvironment }}
             {{- toYaml .Values.images.drupal.resources | nindent 12 }}
             {{- else }}
             {{- toYaml .Values.images.drupal.devresources | nindent 12 }}
@@ -105,7 +99,7 @@ spec:
         ### END DRUPAL CONTAINER
         ### BEGIN REDIS CONTAINER
         {{- if .Values.images.redis.enabled }}
-        - name: {{ .Values.images.redis.name }}
+        - name: {{ .Values.images.redis.name }}-{{ .Values.appEnvironment }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.images.redis.repository }}:{{ .Values.images.redis.tag }}"
@@ -117,7 +111,7 @@ spec:
             - --maxmemory {{ .Values.images.redis.mamxmemory | default "419430400" }}
           imagePullPolicy: {{ .Values.images.redis.pullPolicy | default .Values.images.pullPolicy }}
           ports:
-            - name: {{ .Values.images.redis.name }}
+            - name: {{ .Values.images.redis.name }}-{{ .Values.appEnvironment }}
               containerPort: {{ .Values.images.redis.port }}
               protocol: TCP
           readinessProbe:
@@ -138,13 +132,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: "drupal-config-{{ .Values.appEnvironment }}"
-          {{- if eq .Values.productionBranch .Values.images.app.tag }}
+          {{- if eq .Values.productionBranch .Values.appEnvironment }}
           volumeMounts:
-            - name: redis-data
+            - name: redis-data-{{ .Values.appEnvironment }}
               mountPath: /data
           {{- end }}
           resources:
-            {{- if eq .Values.productionBranch .Values.images.app.tag }}
+            {{- if eq .Values.productionBranch .Values.appEnvironment }}
             {{- toYaml .Values.images.redis.resources | nindent 12 }}
             {{- else }}
             {{- toYaml .Values.images.redis.devresources | nindent 12 }}

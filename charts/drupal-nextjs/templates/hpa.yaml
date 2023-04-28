@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: drupal
+  name: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"-hpa
   labels:
-    app: drupal
+    app: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: drupal
+    name: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
