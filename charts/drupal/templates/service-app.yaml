@@ -12,7 +12,7 @@ spec:
       protocol: TCP
       targetPort: {{ .Values.images.app.port }}
     selector:
-        app: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+        app: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"
     sessionAffinity: None
     type: ClusterIP
 status:

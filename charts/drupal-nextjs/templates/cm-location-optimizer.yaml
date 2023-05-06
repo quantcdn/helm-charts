@@ -13,10 +13,9 @@ data:
       "params": {
         "policy": "static",
         "mustInclude": [
-            {"locationcode":"sea", "provider": "lumen"}
+            {"locationcode":"lax"}
         ],
-        "minimumLocations": 1,
-        "maximumLocations": 1
+        "chooseFrom": ["well-known-egress-ips"]
       }
     }
   {{- else }}

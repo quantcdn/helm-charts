@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: "drupal-pvc-{{ .Values.appEnvironment }}"
+  name: "{{ .Values.images.nextjs.name }}-pvc-{{ .Values.appEnvironment }}"
 spec:
   storageClassName: nfs-client
   accessModes:
@@ -9,7 +9,7 @@ spec:
   resources:
     requests:
       {{- if eq .Values.productionBranch .Values.appEnvironment }}
-      storage: {{ .Values.images.drupal.storage }}
+      storage: {{ .Values.images.nextjs.storage }}
       {{- else }}
-      storage: {{ .Values.images.drupal.devstorage }}
+      storage: {{ .Values.images.nextjs.devstorage }}
       {{- end }}

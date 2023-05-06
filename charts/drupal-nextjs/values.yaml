@@ -2,56 +2,44 @@
 # Provides default variables to be passed into your templates.
 
 replicaCount: 1
-region: us
 
 nameOverride: ""
 fullnameOverride: ""
-productionBranch: main
+
+appVersion: main
+appEnvrionment: main
 
 images:
   pullPolicy: Always
-  app:
-    tag: main
-    name: drupal
-    port: 80
   drupal:
     name: drupal
     sshname: drupal-ssh
     repository: registry.quant.cloud/org/repo
-    tag: edge
+    tag: latest
     port: 80
     sshport: 22
-    storage: 20Gi
-    devstorage: 5Gi
-    resources:
-      limits:
-        cpu: 1500m
-        memory: 1548Mi
-      requests:
-        cpu: 1500m
-        memory: 1548Mi
+    storage: 1Gi
+    devstorage: 200Mi
     devresources:
       limits:
-        cpu: 500m
-        memory: 256Mi
+        cpu: 200m
+        memory: 128Mi
       requests:
-        cpu: 500m
-        memory: 256Mi
+        cpu: 200m
+        memory: 128Mi
+    resources:
+      limits:
+        cpu: 800m
+        memory: 816Mi
+      requests:
+        cpu: 800m
+        memory: 816Mi
   redis:
     enabled: true
     name: redis
     repository: redis
     tag: latest
     port: 6379
-    cachePolicy: volatile-lru
-    maxmemory: 419430400
-    resources:
-      limits:
-        cpu: 500m
-        memory: 500Mi
-      requests:
-        cpu: 500m
-        memory: 500Mi
     devresources:
       limits:
         cpu: 200m
@@ -59,6 +47,38 @@ images:
       requests:
         cpu: 200m
         memory: 128Mi
+    resources:
+      limits:
+        cpu: 200m
+        memory: 500Mi
+      requests:
+        cpu: 200m
+        memory: 500Mi
+  nextjs:
+    enabled: true
+    name: nextjs
+    repository: nextjs
+    tag: latest
+    port: 3000
+    storage: 1Gi
+    devstorage: 200Mi
+    config:
+      drupal_base:
+      image_domain:
+    devresources:
+      limits:
+        cpu: 200m
+        memory: 128Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 732Mi
+      requests:
+        cpu: 1000m
+        memory: 732Mi
 
 
 podAnnotations: {}
@@ -109,9 +129,9 @@ ingress:
 # It is recommended to use it with quotes.
 appVersion: "0.1.0"
 
-appEnvironment: main
-
-configName: 
+# Secrets
+# Manage app secrets with kubernetes rather than committing
+# in the codebase itself.
 secrets:
   registry:
     user:
@@ -133,3 +153,6 @@ secrets:
   redis:
     host: localhost
   authorized_keys: ""
+  drupal:
+    preview_secret: secret
+    revalidate_secret: secret
