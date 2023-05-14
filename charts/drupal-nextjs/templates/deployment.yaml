@@ -122,9 +122,9 @@ spec:
                 name: "{{ .Values.images.drupal.name }}-config-{{ .Values.appEnvironment }}"
             - configMapRef:
                 name: "{{ .Values.images.nextjs.name }}-config-{{ .Values.appEnvironment }}"
-          volumeMounts:
-            - name: {{ .Values.images.nextjs.name }}-data
-              mountPath: /app/.next
+          # volumeMounts:
+          #   - name: {{ .Values.images.nextjs.name }}-data
+          #     mountPath: /app/.next
           resources:
             {{- if eq .Values.productionBranch .Values.appEnvironment }}
             {{- toYaml .Values.images.nextjs.resources | nindent 12 }}
