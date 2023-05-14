@@ -64,7 +64,6 @@ images:
     devstorage: 200Mi
     config:
       drupal_base:
-      image_domain:
     devresources:
       limits:
         cpu: 200m
