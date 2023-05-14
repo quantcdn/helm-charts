@@ -102,21 +102,21 @@ spec:
             - name: {{ .Values.images.nextjs.name }}-{{ .Values.appEnvironment }}
               containerPort: {{ .Values.images.nextjs.port }}
               protocol: TCP
-          readinessProbe:
-            failureThreshold: 3
-            initialDelaySeconds: 300
-            periodSeconds: 10
-            successThreshold: 1
-            tcpSocket:
-              port: {{ .Values.images.nextjs.port }}
-            timeoutSeconds: 1
-          livenessProbe:
-            failureThreshold: 3
-            initialDelaySeconds: 300
-            periodSeconds: 10
-            successThreshold: 1
-            tcpSocket:
-              port: {{ .Values.images.nextjs.port }}
+          # readinessProbe:
+          #   failureThreshold: 3
+          #   initialDelaySeconds: 300
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   tcpSocket:
+          #     port: {{ .Values.images.nextjs.port }}
+          #   timeoutSeconds: 1
+          # livenessProbe:
+          #   failureThreshold: 3
+          #   initialDelaySeconds: 300
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   tcpSocket:
+          #     port: {{ .Values.images.nextjs.port }}
           envFrom:
             - configMapRef:
                 name: "{{ .Values.images.drupal.name }}-config-{{ .Values.appEnvironment }}"
