@@ -4,6 +4,6 @@ metadata:
   name: {{ .Values.images.nextjs.name }}-config-{{ .Values.appEnvironment }}
 data:
     NEXT_PUBLIC_DRUPAL_BASE_URL: {{ .Values.images.nextjs.config.drupal_base | default "http://localhost" }}
-    NEXT_IMAGE_DOMAIN: {{ .Values.images.nextjs.config.image_domain | default "localhost" }}
+    NEXT_PUBLIC_IMAGE_DOMAIN: {{ .Values.images.nextjs.config.image_domain | default "" }} # Relative images on Quant Cloud.
     DRUPAL_PREVIEW_SECRET: {{ .Values.secrets.drupal.preview_secret | default "secret" }}
     DRUPAL_REVALIDATE_SECRET: {{ .Values.secrets.drupal.revalidate_secret | default "secret" }}
