@@ -38,5 +38,5 @@ Create an image pull secret
 Determine the environment type from values provided.
 */}}
 {{- define "quant.environmentType" -}}
-{{- if eq .Values.productionBranch .Values.appVersion }}production{{ else }}development{{ end }}
+{{- if eq .Values.productionBranch .Values.appEnvironment }}production{{ else }}development{{ end }}
 {{- end }}
