@@ -6,8 +6,8 @@ replicaCount: 1
 nameOverride: ""
 fullnameOverride: ""
 
-appVersion: main
-appEnvrionment: main
+appEnvironment: main
+productionBranch: main
 
 images:
   pullPolicy: Always
@@ -127,7 +127,7 @@ ingress:
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "0.1.0"
+appVersion: "{{ .Chart.Version }}"
 
 # Secrets
 # Manage app secrets with kubernetes rather than committing

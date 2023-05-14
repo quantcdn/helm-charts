@@ -1,0 +1,23 @@
+{{- if eq .Values.productionBranch .Values.appEnvironment }}
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
+  name: app-default
+  namespace: default
+  labels:
+    app: app-default
+spec:
+    ports:
+    - name: 80-{{ .Values.images.nextjs.port }}
+      port: 80
+      protocol: TCP
+      targetPort: {{ .Values.images.nextjs.port }}
+    selector:
+        app: "{{ .Values.images.nextjs.name }}-{{ .Values.appEnvironment }}"
+    sessionAffinity: None
+    type: ClusterIP
+status:
+    loadBalancer: {}
+ {{- end }}
