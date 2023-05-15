@@ -1,3 +1,4 @@
+{{- if eq .Values.productionBranch .Values.appEnvironment }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -16,3 +17,4 @@ data:
     location / {
       proxy_pass http://{{ .Values.images.nextjs.name }}-{{ .Values.appEnvironment }};
     }
+ {{- end }}
