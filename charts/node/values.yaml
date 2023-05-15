@@ -2,15 +2,18 @@
 # Provides default variables to be passed into your templates.
 
 replicaCount: 1
+region: auto
 
 nameOverride: ""
 fullnameOverride: ""
 productionBranch: main
 
+appEnvironment: main
+
 images:
   pullPolicy: Always
   app:
-    name: node-express
+    name: node
     branch: main
     repository: registry.quant.cloud/org/repo
     tag: edge
@@ -37,7 +40,7 @@ podSecurityContext: {}
 securityContext: {}
 
 service:
-  name: node-express
+  name: node
   type: ClusterIP
   port: 3000
 
@@ -58,7 +61,7 @@ affinity: {}
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "0.1.0"
+appVersion: "{{ .Chart.Version }}"
 
 # Secrets
 # Manage app secrets with kubernetes rather than committing
