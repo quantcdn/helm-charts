@@ -189,6 +189,15 @@ entries:
     version: 0.2.0
   drupal-nextjs:
   - apiVersion: v2
+    created: "2023-05-15T21:42:31.850518047Z"
+    description: Chart to install Drupal+NextJS to QuantCloud.
+    digest: e38fac51385efe61cda343b6af4122b3264cbebe9a394d7ed782c7847d046d24
+    name: drupal-nextjs
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/drupal-nextjs-0.1.11/drupal-nextjs-0.1.11.tgz
+    version: 0.1.11
+  - apiVersion: v2
     created: "2023-05-15T21:18:26.672527445Z"
     description: Chart to install Drupal+NextJS to QuantCloud.
     digest: ea2b5914d52e55bc79a78cd2472541fd2650bf3faf2e1f512416d4818c78d8cd
@@ -407,4 +416,4 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/waf-0.1.0/waf-0.1.0.tgz
     version: 0.1.0
-generated: "2023-05-15T21:18:27.004165942Z"
+generated: "2023-05-15T21:42:31.850591248Z"
