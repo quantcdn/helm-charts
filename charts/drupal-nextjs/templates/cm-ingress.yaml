@@ -1,0 +1,20 @@
+{{- if eq .Values.productionBranch .Values.appEnvironment }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-config
+  namespace: default
+data:
+  000-routing.conf: |
+    location /sites/default/files {
+      proxy_pass http://{{ .Values.images.drupal.name }}-$quant_cloud_environment;
+    }
+
+    location /themes {
+      proxy_pass http://{{ .Values.images.drupal.name }}-$quant_cloud_environment;
+    }
+
+    location / {
+      proxy_pass http://{{ .Values.images.nextjs.name }}-$quant_cloud_environment;
+    }
+ {{- end }}

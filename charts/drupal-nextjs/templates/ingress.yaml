@@ -18,15 +18,23 @@ spec:
     spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: ingress-config
+          configMap:
+            name: ingress-config
       containers:
         ### BEGIN INGRESS CONTAINER
         - name: ingress
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: registry.quant.cloud/quant-public/ingress:1.0.11
+          image: registry.quant.cloud/quant-public/ingress:1.0.12
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: ingress-config
+              mountPath: /etc/nginx/conf.d/prod/000-routing.conf
+              subPath: 000-routing.conf
           resources:
             requests:
               memory: ".25Gi"
