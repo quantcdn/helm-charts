@@ -13,8 +13,4 @@ data:
     location /themes {
       proxy_pass http://{{ .Values.images.drupal.name }}-$quant_cloud_environment;
     }
-
-    location / {
-      proxy_pass http://{{ .Values.images.nextjs.name }}-$quant_cloud_environment;
-    }
  {{- end }}
