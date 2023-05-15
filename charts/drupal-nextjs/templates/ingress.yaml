@@ -18,6 +18,10 @@ spec:
     spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: ingress-config
+          configMap:
+            name: ingress-config
       containers:
         ### BEGIN INGRESS CONTAINER
         - name: ingress
@@ -27,6 +31,10 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: ingress-config
+              mountPath: /etc/nginx/conf.d/prod/000-routing.conf
+              subPath: 000-routing.conf
           resources:
             requests:
               memory: ".25Gi"
