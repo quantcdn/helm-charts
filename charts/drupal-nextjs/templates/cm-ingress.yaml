@@ -7,14 +7,14 @@ metadata:
 data:
   000-routing.conf: |
     location /sites/default/files {
-      proxy_pass http://{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }};
+      proxy_pass http://{{ .Values.images.drupal.name }}-$quant_cloud_environment;
     }
 
     location /themes {
-      proxy_pass http://{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }};
+      proxy_pass http://{{ .Values.images.drupal.name }}-$quant_cloud_environment;
     }
 
     location / {
-      proxy_pass http://{{ .Values.images.nextjs.name }}-{{ .Values.appEnvironment }};
+      proxy_pass http://{{ .Values.images.nextjs.name }}-$quant_cloud_environment;
     }
  {{- end }}
