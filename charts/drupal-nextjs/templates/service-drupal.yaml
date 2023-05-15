@@ -12,7 +12,7 @@ spec:
       protocol: TCP
       targetPort: {{ .Values.images.drupal.port }}
     selector:
-        app: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
+        app: "{{ include "quant.name" . }}-{{ .Values.appEnvironment }}"
     sessionAffinity: None
     type: ClusterIP
 status:

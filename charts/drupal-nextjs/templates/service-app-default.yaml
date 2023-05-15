@@ -15,7 +15,7 @@ spec:
       protocol: TCP
       targetPort: {{ .Values.images.nextjs.port }}
     selector:
-        app: "{{ .Values.images.nextjs.name }}-{{ .Values.appEnvironment }}"
+        app: "{{ include "quant.name" . }}-{{ .Values.appEnvironment }}"
     sessionAffinity: None
     type: ClusterIP
 status:
