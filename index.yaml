@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   cloud-config:
   - apiVersion: v2
+    created: "2023-05-15T21:18:26.350076784Z"
+    description: Default configuration setup chart for Quant Cloud
+    digest: 037b40c0e19eeb63c2c54e99119dab582500fbadbb8047f6f5af9656bee79e68
+    name: cloud-config
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/cloud-config-0.1.1/cloud-config-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2023-04-21T01:34:45.260845015Z"
     description: Default configuration setup chart for Quant Cloud
     digest: e7d423b7ae8d4b208073fc8e63d3604bca0b9da3183e7aa0f80384f47bf8b419
@@ -21,6 +30,15 @@ entries:
     - https://github.com/quantcdn/helm-charts/releases/download/config-0.1.1/config-0.1.1.tgz
     version: 0.1.1
   drupal:
+  - apiVersion: v2
+    created: "2023-05-15T21:18:26.511063861Z"
+    description: Default Drupal installation chart for Quant Cloud
+    digest: 08795c2f3997452fab2e663629e98759f4b282dc712f67023ee18def419ef10f
+    name: drupal
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/drupal-0.3.12/drupal-0.3.12.tgz
+    version: 0.3.12
   - apiVersion: v2
     created: "2023-05-14T23:14:38.747916257Z"
     description: Default Drupal installation chart for Quant Cloud
@@ -171,6 +189,15 @@ entries:
     version: 0.2.0
   drupal-nextjs:
   - apiVersion: v2
+    created: "2023-05-15T21:18:26.672527445Z"
+    description: Chart to install Drupal+NextJS to QuantCloud.
+    digest: ea2b5914d52e55bc79a78cd2472541fd2650bf3faf2e1f512416d4818c78d8cd
+    name: drupal-nextjs
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/drupal-nextjs-0.1.10/drupal-nextjs-0.1.10.tgz
+    version: 0.1.10
+  - apiVersion: v2
     created: "2023-05-15T00:06:52.484579762Z"
     description: Chart to install Drupal+NextJS to QuantCloud.
     digest: 000f21189eeed8c9512b62a50b834b28651ac553c9531f2271d5d7b7f7cc13e8
@@ -244,6 +271,15 @@ entries:
     version: 0.1.1
   ingress:
   - apiVersion: v2
+    created: "2023-05-15T21:18:26.842208651Z"
+    description: Default Ingress installation chart for Quant Cloud
+    digest: 687b6114deab70666a3d98b80153370810c405826354f497a8946f77172c7c59
+    name: ingress
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/ingress-0.2.1/ingress-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     created: "2023-04-11T03:04:30.582497887Z"
     description: Default Ingress installation chart for Quant Cloud
     digest: 799942d8447f9c42fa5a2cafcd550313354e4b97823bd213b51efea299080213
@@ -261,6 +297,16 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/ingress-0.1.0/ingress-0.1.0.tgz
     version: 0.1.0
+  node:
+  - apiVersion: v2
+    created: "2023-05-15T21:18:27.003919639Z"
+    description: Default Node.js Deployment installation chart for Quant Cloud
+    digest: 64f4849def61fb6fc462d11737715c2bac52ce8dd3c9ebc5b7fadcca6325fd3a
+    name: node
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/node-0.3.0/node-0.3.0.tgz
+    version: 0.3.0
   node-express:
   - apiVersion: v2
     created: "2023-04-11T03:29:58.070181832Z"
@@ -361,4 +407,4 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/waf-0.1.0/waf-0.1.0.tgz
     version: 0.1.0
-generated: "2023-05-15T00:06:52.48472416Z"
+generated: "2023-05-15T21:18:27.004165942Z"
