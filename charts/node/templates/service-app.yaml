@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+  name: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"
   namespace: default
   labels:
-    app: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+    app: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"
 spec:
     ports:
     - name: 80-{{ .Values.images.app.port }}
@@ -12,7 +12,7 @@ spec:
       protocol: TCP
       targetPort: {{ .Values.images.app.port }}
     selector:
-        app: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+        app: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"
     sessionAffinity: None
     type: ClusterIP
 status:

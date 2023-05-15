@@ -4,20 +4,20 @@ kind: Service
 metadata:
   annotations:
     "helm.sh/resource-policy": keep
-  name: ingress-upstream
+  name: app-default
   namespace: default
   labels:
-    app: ingress-upstream
+    app: app-default
 spec:
     ports:
-    - name: 80-80
+    - name: 80-{{ .Values.images.app.port }}
       port: 80
       protocol: TCP
-      targetPort: 80
+      targetPort: {{ .Values.images.app.port }}
     selector:
-        app: quant-ingress
+        app: "{{ .Values.images.app.name }}-{{ .Values.productionBranch }}"
     sessionAffinity: None
     type: ClusterIP
 status:
     loadBalancer: {}
-{{- end }}
+ {{- end }}

@@ -19,7 +19,7 @@ spec:
       annotations:
         timestamp: {{ now | quote }}
       labels:
-        app: "{{ .Values.images.app.name }}-{{ .Values.images.app.tag }}"
+        app: "{{ .Values.images.app.name }}-{{ .Values.appEnvironment }}"
         version: {{ .Values.appVersion }}
     spec:
       imagePullSecrets:
@@ -41,10 +41,10 @@ spec:
         {{- end }}
       containers:
         ### BEGIN DRUPAL CONTAINER
-        - name: "{{ .Values.images.drupal.name }}-{{ .Values.images.app.tag }}"
+        - name: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.images.drupal.repository }}:{{ .Values.images.app.tag }}"
+          image: "{{ .Values.images.drupal.repository }}:{{ .Values.appEnvironment }}"
           imagePullPolicy: Always
           ports:
             - name: {{ .Values.images.drupal.name }}
@@ -78,7 +78,7 @@ spec:
             - name: QUANT_PRODUCTION_ENVIRONMENT
               value: "{{ .Values.productionBranch }}"
             - name: QUANT_ENVIRONMENT_BRANCH
-              value: "{{ .Values.images.app.tag }}"
+              value: "{{ .Values.appEnvironment }}"
             - name: QUANT_ENVIRONMENT_TYPE
               value: "{{ include "quant.environmentType" . }}"
           volumeMounts:
