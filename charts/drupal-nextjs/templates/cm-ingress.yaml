@@ -7,10 +7,10 @@ metadata:
 data:
   000-routing.conf: |
     location /sites/default/files {
-      proxy_pass http://{{ .Values.images.drupal.name }}-$quant_cloud_environment;
+      proxy_pass http://{{ .Values.images.drupal.name }}-$quant_cloud_environment.$fdqn;
     }
 
     location /themes {
-      proxy_pass http://{{ .Values.images.drupal.name }}-$quant_cloud_environment;
+      proxy_pass http://{{ .Values.images.drupal.name }}-$quant_cloud_environment.$fdqn;
     }
  {{- end }}
