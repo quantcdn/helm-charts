@@ -99,7 +99,7 @@ spec:
           image: "{{ .Values.images.nextjs.repository }}:{{ .Values.images.nextjs.tag }}"
           imagePullPolicy: {{ .Values.images.nextjs.pullPolicy | default "Always" }}
           ports:
-            - name: {{ .Values.images.nextjs.name }}-{{ .Values.appEnvironment }}
+            - name: {{ .Values.images.nextjs.name }}
               containerPort: {{ .Values.images.nextjs.port }}
               protocol: TCP
           readinessProbe:
@@ -146,7 +146,7 @@ spec:
             - --maxmemory {{ .Values.images.redis.mamxmemory | default "419430400" }}
           imagePullPolicy: {{ .Values.images.redis.pullPolicy | default "Always" }}
           ports:
-            - name: {{ .Values.images.redis.name }}-{{ .Values.appEnvironment }}
+            - name: {{ .Values.images.redis.name }}
               containerPort: {{ .Values.images.redis.port }}
               protocol: TCP
           readinessProbe:
