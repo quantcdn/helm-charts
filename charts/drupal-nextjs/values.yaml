@@ -66,11 +66,11 @@ images:
       drupal_base:
     devresources:
       limits:
-        cpu: 200m
-        memory: 128Mi
+        cpu: 400m
+        memory: 400Mi
       requests:
-        cpu: 200m
-        memory: 128Mi
+        cpu: 400m
+        memory: 400Mi
     resources:
       limits:
         cpu: 1000m
