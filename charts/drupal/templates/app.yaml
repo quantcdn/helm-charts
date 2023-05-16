@@ -108,7 +108,7 @@ spec:
             - --maxmemory {{ .Values.images.redis.mamxmemory | default "419430400" }}
           imagePullPolicy: {{ .Values.images.redis.pullPolicy | default .Values.images.pullPolicy }}
           ports:
-            - name: {{ .Values.images.redis.name }}-{{ .Values.appEnvironment }}
+            - name: {{ .Values.images.redis.name }}
               containerPort: {{ .Values.images.redis.port }}
               protocol: TCP
           readinessProbe:
