@@ -23,10 +23,10 @@ images:
     devresources:
       limits:
         cpu: 200m
-        memory: 128Mi
+        memory: 256Mi
       requests:
         cpu: 200m
-        memory: 128Mi
+        memory: 256Mi
     resources:
       limits:
         cpu: 800m
