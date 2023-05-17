@@ -143,7 +143,11 @@ spec:
             - --save 60 1
             - --loglevel warning
             - --maxmemory-policy {{ .Values.images.redis.cachePolicy | default "volatile-lru" }}
-            - --maxmemory {{ .Values.images.redis.mamxmemory | default "419430400" }}
+            {{- if eq .Values.productionBranch .Values.appEnvironment }}
+            - --maxmemory {{ .Values.images.redis.maxMemory | default "419430400" }}
+            {{- else }}
+            - --maxmemory {{ .Values.images.redis.maxMemoryDev | default "209715200" }}
+            {{- end }}
           imagePullPolicy: {{ .Values.images.redis.pullPolicy | default "Always" }}
           ports:
             - name: {{ .Values.images.redis.name }}
