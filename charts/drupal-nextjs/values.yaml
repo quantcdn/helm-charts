@@ -22,11 +22,11 @@ images:
     devstorage: 200Mi
     devresources:
       limits:
-        cpu: 400m
-        memory: 256Mi
+        cpu: 800m
+        memory: 512Mi
       requests:
-        cpu: 400m
-        memory: 256Mi
+        cpu: 800m
+        memory: 512Mi
     resources:
       limits:
         cpu: 800m
@@ -43,10 +43,10 @@ images:
     devresources:
       limits:
         cpu: 200m
-        memory: 128Mi
+        memory: 256Mi
       requests:
         cpu: 200m
-        memory: 128Mi
+        memory: 256Mi
     resources:
       limits:
         cpu: 200m
@@ -66,10 +66,10 @@ images:
       drupal_base:
     devresources:
       limits:
-        cpu: 600m
+        cpu: 1000m
         memory: 732Mi
       requests:
-        cpu: 600m
+        cpu: 1000m
         memory: 732Mi
     resources:
       limits:
