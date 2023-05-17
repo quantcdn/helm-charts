@@ -1,5 +1,4 @@
 {{- if .Values.images.redis.enabled }}
-{{- if eq .Values.productionBranch .Values.appEnvironment }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -11,5 +10,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-{{- end }}
 {{- end }}
