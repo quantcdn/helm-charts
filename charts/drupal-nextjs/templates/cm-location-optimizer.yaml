@@ -13,9 +13,23 @@ data:
       "params": {
         "policy": "static",
         "mustInclude": [
-            {"locationcode":"lax"}
+            {"locationcode":"lax","provider":"lumen"}
         ],
-        "chooseFrom": ["well-known-egress-ips"]
+        "chooseFrom": ["well-known-egress-ips"],
+        "minimumLocations": 1,
+        "maximumLocations": 1
+      }
+    }
+  {{- else if eq .Values.region "au" }}
+    {
+      "strategy":"SolverServiceV1",
+      "params": {
+        "policy": "static",
+        "mustInclude": [
+            {"locationcode":"bne","provider":"rackcorp"}
+        ],
+        "minimumLocations": 1,
+        "maximumLocations": 1
       }
     }
   {{- else }}
