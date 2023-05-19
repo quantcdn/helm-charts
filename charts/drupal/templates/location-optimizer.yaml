@@ -15,9 +15,7 @@ data:
         "mustInclude": [
             {"locationcode":"lax","provider":"lumen"}
         ],
-        "chooseFrom": ["well-known-egress-ips"],
-        "minimumLocations": 1,
-        "maximumLocations": 1
+        "chooseFrom": ["well-known-egress-ips"]
       }
     }
   {{- else if eq .Values.region "au" }}
@@ -27,9 +25,7 @@ data:
         "policy": "static",
         "mustInclude": [
             {"locationcode":"bne","provider":"rackcorp"}
-        ],
-        "minimumLocations": 1,
-        "maximumLocations": 1
+        ]
       }
     }
   {{- else }}
