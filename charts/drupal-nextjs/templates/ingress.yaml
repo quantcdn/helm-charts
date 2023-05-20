@@ -27,13 +27,13 @@ spec:
         - name: ingress
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: registry.quant.cloud/quant-public/ingress:1.0.14
+          image: registry.quant.cloud/quant-public/ingress:1.0.15
           imagePullPolicy: Always
           ports:
             - containerPort: 80
           volumeMounts:
             - name: ingress-config
-              mountPath: /etc/nginx/conf.d/prod/000-routing.conf
+              mountPath: /etc/nginx/conf.d/all/000-routing.conf
               subPath: 000-routing.conf
           resources:
             requests:
