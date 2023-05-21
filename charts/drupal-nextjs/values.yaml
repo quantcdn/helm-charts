@@ -156,3 +156,7 @@ secrets:
   drupal:
     preview_secret: secret
     revalidate_secret: secret
+  s3fs:
+    enabled: false
+    access_key:
+    secret_key:
