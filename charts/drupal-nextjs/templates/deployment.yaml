@@ -35,9 +35,11 @@ spec:
           configMap:
             name: authorized-keys-{{ .Values.appEnvironment }}
             defaultMode: 384
+        {{- if ! .Values.secrets.s3fs.enabled }}
         - name: {{ .Values.images.drupal.name }}-data
           persistentVolumeClaim:
             claimName: "{{ .Values.images.drupal.name }}-pvc-{{ .Values.appEnvironment }}"
+        {{- end }}
         - name: {{ .Values.images.nextjs.name }}-data
           persistentVolumeClaim:
             claimName: "{{ .Values.images.nextjs.name }}-pvc-{{ .Values.appEnvironment }}"
@@ -83,8 +85,10 @@ spec:
             - name: authorized-keys
               mountPath: /root/.ssh/authorized_keys
               subPath: authorized_keys
+            {{- if ! .Values.secrets.s3fs.enabled }}
             - name: {{ .Values.images.drupal.name }}-data
               mountPath: /opt/drupal/web/sites/default/files
+            {{- end }}
           resources:
             {{- if eq .Values.productionBranch .Values.appEnvironment }}
             {{- toYaml .Values.images.drupal.resources | nindent 12 }}
