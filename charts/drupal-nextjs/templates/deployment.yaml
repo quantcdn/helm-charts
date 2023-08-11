@@ -107,6 +107,7 @@ spec:
             periodSeconds: 10
             httpGet:
               path: /.well-known/startup
+              port: {{ .Values.images.nextjs.port }}
           readinessProbe:
             failureThreshold: 3
             initialDelaySeconds: 5
@@ -114,6 +115,7 @@ spec:
             successThreshold: 1
             httpGet:
               path: /.well-known/ready
+              port: {{ .Values.images.nextjs.port }}
             timeoutSeconds: 1
           livenessProbe:
             failureThreshold: 3
@@ -121,6 +123,7 @@ spec:
             successThreshold: 1
             httpGet:
               path: /.well-known/liveness
+              port: {{ .Values.images.nextjs.port }}
           envFrom:
             - configMapRef:
                 name: "{{ .Values.images.drupal.name }}-config-{{ .Values.appEnvironment }}"
