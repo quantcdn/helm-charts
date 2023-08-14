@@ -53,6 +53,13 @@ spec:
             - /usr/local/bin/backend-init
             - --url
             - http://localhost/jsonapi
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
       containers:
         ### BEGIN DRUPAL CONTAINER
         - name: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
