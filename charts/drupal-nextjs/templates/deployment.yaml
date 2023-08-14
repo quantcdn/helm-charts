@@ -46,6 +46,14 @@ spec:
           persistentVolumeClaim:
             claimName: "redis-pvc-{{ .Values.appEnvironment }}"
         {{- end }}
+      initContainers:
+        - name: init-container-{{ .Values.appEnvironment }}
+          image: docker pull ghcr.io/quantcdn/backend-init:main
+          command:
+            - /usr/local/bin/backend-init
+            - --url
+            - http://localhost/jsonapi
+
       containers:
         ### BEGIN DRUPAL CONTAINER
         - name: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
