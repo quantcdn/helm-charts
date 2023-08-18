@@ -46,20 +46,6 @@ spec:
           persistentVolumeClaim:
             claimName: "redis-pvc-{{ .Values.appEnvironment }}"
         {{- end }}
-      initContainers:
-        - name: init-container-{{ .Values.appEnvironment }}
-          image: ghcr.io/quantcdn/backend-init:main
-          command:
-            - /usr/local/bin/backend-init
-            - --url
-            - http://localhost/jsonapi
-          resources:
-            limits:
-              cpu: 100m
-              memory: 100Mi
-            requests:
-              cpu: 100m
-              memory: 100Mi
       containers:
         ### BEGIN DRUPAL CONTAINER
         - name: "{{ .Values.images.drupal.name }}-{{ .Values.appEnvironment }}"
@@ -67,6 +53,15 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.images.drupal.repository }}:{{ .Values.images.drupal.tag }}"
           imagePullPolicy: {{ .Values.images.drupal.pullPolicy | default "Always" }}
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - backend-init
+                  - verify
+                  - http://localhost/jsonapi
+                  - --delay=5
+                  - --retries=30
           ports:
             - name: {{ .Values.images.drupal.name }}
               containerPort: {{ .Values.images.drupal.port }}
