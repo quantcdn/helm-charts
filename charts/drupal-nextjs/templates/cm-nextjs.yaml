@@ -7,3 +7,6 @@ data:
     NEXT_PUBLIC_IMAGE_DOMAIN: "" # Relative images on Quant Cloud.
     DRUPAL_PREVIEW_SECRET: {{ .Values.secrets.drupal.preview_secret | default "secret" }}
     DRUPAL_REVALIDATE_SECRET: {{ .Values.secrets.drupal.revalidate_secret | default "secret" }}
+    QUANT_ORGANIZATION: {{ .Values.secrets.quant.organization | default "" }}
+    QUANT_PROJECT: {{ .Values.secrets.quant.project | default "" }}
+    QUANT_TOKEN: {{ .Values.secrets.quant.token | default "" }}
