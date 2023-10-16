@@ -16,7 +16,8 @@ data:
     QUANT_SMTP_FROM_NAME: "{{ .Values.secrets.smtp.from_name }}"
     REDIS_HOST: "{{ .Values.secrets.redis.host }}"
 
-    APACHE_RUNE_USER: nobody
+    APACHE_RUN_USER: nobody
     QUANT_PRODUCTION_ENVIRONMENT: "{{ .Values.productionBranch | default "main" }}"
     QUANT_ENVIRONMENT_BRANCH: "{{ .Values.appEnvironment }}"
     QUANT_ENVIRONMENT_TYPE: "{{ include "quant.environmentType" . }}"
+    QUANT_PROJECT_UUID: "{{ .Values.secrets.quant.project_uuid }}"
