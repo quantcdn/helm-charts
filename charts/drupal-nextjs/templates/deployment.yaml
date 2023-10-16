@@ -53,6 +53,15 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.images.drupal.repository }}:{{ .Values.images.drupal.tag }}"
           imagePullPolicy: {{ .Values.images.drupal.pullPolicy | default "Always" }}
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - backend-init
+                  - verify
+                  - http://localhost/jsonapi
+                  - --delay=5
+                  - --retries=30
           ports:
             - name: {{ .Values.images.drupal.name }}
               containerPort: {{ .Values.images.drupal.port }}
@@ -102,20 +111,27 @@ spec:
             - name: {{ .Values.images.nextjs.name }}
               containerPort: {{ .Values.images.nextjs.port }}
               protocol: TCP
+          startupProbe:
+            failureThreshold: 50
+            periodSeconds: 10
+            httpGet:
+              path: /.well-known/startup
+              port: {{ .Values.images.nextjs.port }}
           readinessProbe:
             failureThreshold: 3
-            initialDelaySeconds: 300
+            initialDelaySeconds: 5
             periodSeconds: 10
             successThreshold: 1
-            tcpSocket:
+            httpGet:
+              path: /.well-known/ready
               port: {{ .Values.images.nextjs.port }}
             timeoutSeconds: 1
           livenessProbe:
             failureThreshold: 3
-            initialDelaySeconds: 300
-            periodSeconds: 10
+            periodSeconds: 5
             successThreshold: 1
-            tcpSocket:
+            httpGet:
+              path: /.well-known/liveness
               port: {{ .Values.images.nextjs.port }}
           envFrom:
             - configMapRef:
