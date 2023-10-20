@@ -38,7 +38,7 @@ spec:
         - name: {{ .Values.images.drupal.name }}-data
           persistentVolumeClaim:
             claimName: "{{ .Values.images.drupal.name }}-pvc-{{ .Values.appEnvironment }}"
-        - name: {{ .Values.images.nextjs.name }}-data
+        - name: {{ .Values.images.nextjs.name }}-cache
           persistentVolumeClaim:
             claimName: "{{ .Values.images.nextjs.name }}-pvc-{{ .Values.appEnvironment }}"
         {{- if .Values.images.redis.enabled }}
@@ -123,8 +123,8 @@ spec:
             - configMapRef:
                 name: "{{ .Values.images.nextjs.name }}-config-{{ .Values.appEnvironment }}"
           volumeMounts:
-            - name: {{ .Values.images.nextjs.name }}-data
-              mountPath: /app/.next
+            - name: {{ .Values.images.nextjs.name }}-cache
+              mountPath: /app/.next/cache
           resources:
             {{- if eq .Values.productionBranch .Values.appEnvironment }}
             {{- toYaml .Values.images.nextjs.resources | nindent 12 }}
