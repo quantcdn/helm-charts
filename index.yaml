@@ -31,6 +31,15 @@ entries:
     version: 0.1.1
   drupal:
   - apiVersion: v2
+    created: "2023-10-30T00:12:45.52272849Z"
+    description: Default Drupal installation chart for Quant Cloud
+    digest: 9e9c73203734d205f6d37664cb0a0f3decbd9bc8ad47544ee7aabf7361b67742
+    name: drupal
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/drupal-0.3.19/drupal-0.3.19.tgz
+    version: 0.3.19
+  - apiVersion: v2
     created: "2023-10-17T21:56:52.812100656Z"
     description: Default Drupal installation chart for Quant Cloud
     digest: 616f0fbd2b32990f24fc30ef3063727c3ca75fb0dcd2deb219e15546d1cf84aa
@@ -242,6 +251,15 @@ entries:
     - https://github.com/quantcdn/helm-charts/releases/download/drupal-0.2.0/drupal-0.2.0.tgz
     version: 0.2.0
   drupal-nextjs:
+  - apiVersion: v2
+    created: "2023-10-30T00:12:45.641708967Z"
+    description: Chart to install Drupal+NextJS to QuantCloud.
+    digest: 7bc1921dae8f985b44023c1cf015039224f4dbfc5928b422332199a8acd55b7c
+    name: drupal-nextjs
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/drupal-nextjs-0.1.33/drupal-nextjs-0.1.33.tgz
+    version: 0.1.33
   - apiVersion: v2
     created: "2023-10-27T09:22:10.118715087Z"
     description: Chart to install Drupal+NextJS to QuantCloud.
@@ -514,6 +532,15 @@ entries:
     version: 0.1.1
   ingress:
   - apiVersion: v2
+    created: "2023-10-30T00:12:45.753554264Z"
+    description: Default Ingress installation chart for Quant Cloud
+    digest: caf4bbabf3b7fe1163bbfde7974e5a330dcdba7dc21dfeb695832d3b3dab5bd3
+    name: ingress
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/ingress-0.2.3/ingress-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
     created: "2023-05-15T22:33:13.989547572Z"
     description: Default Ingress installation chart for Quant Cloud
     digest: e9fa97fe5ce1ec784a9d6d571faebb76279d48615a8e153420d3b6de9ad1f978
@@ -659,4 +686,4 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/waf-0.1.0/waf-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-27T09:22:10.119302299Z"
+generated: "2023-10-30T00:12:45.754053562Z"
