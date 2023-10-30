@@ -59,12 +59,12 @@ spec:
               protocol: TCP
           readinessProbe:
             failureThreshold: 30
-            initialDelaySeconds: 10
-            periodSeconds: 10
+            initialDelaySeconds: 30
+            periodSeconds: 30
             successThreshold: 1
             tcpSocket:
               port: {{ .Values.images.drupal.port }}
-            timeoutSeconds: 5
+            timeoutSeconds: 30
           livenessProbe:
             failureThreshold: 3
             initialDelaySeconds: 10
@@ -72,7 +72,7 @@ spec:
             successThreshold: 1
             tcpSocket:
               port: {{ .Values.images.drupal.port }}
-            timeoutSeconds: 5
+            timeoutSeconds: 30
           envFrom:
             - configMapRef:
                 name: "{{ .Values.images.drupal.name }}-config-{{ .Values.appEnvironment }}"
