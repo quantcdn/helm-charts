@@ -66,9 +66,9 @@ spec:
               port: {{ .Values.images.drupal.port }}
             timeoutSeconds: 30
           livenessProbe:
-            failureThreshold: 3
-            initialDelaySeconds: 10
-            periodSeconds: 10
+            failureThreshold: 30
+            initialDelaySeconds: 30
+            periodSeconds: 30
             successThreshold: 1
             tcpSocket:
               port: {{ .Values.images.drupal.port }}
