@@ -596,6 +596,15 @@ entries:
     version: 0.1.0
   node:
   - apiVersion: v2
+    created: "2023-11-06T06:18:50.079959546Z"
+    description: Default Node.js Deployment installation chart for Quant Cloud
+    digest: 857238dff9d8fc271a839eefde41e2d04fbf98a7ec862062618f05c83cbb304a
+    name: node
+    type: application
+    urls:
+    - https://github.com/quantcdn/helm-charts/releases/download/node-0.3.1/node-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     created: "2023-05-15T21:18:27.003919639Z"
     description: Default Node.js Deployment installation chart for Quant Cloud
     digest: 64f4849def61fb6fc462d11737715c2bac52ce8dd3c9ebc5b7fadcca6325fd3a
@@ -704,4 +713,4 @@ entries:
     urls:
     - https://github.com/quantcdn/helm-charts/releases/download/waf-0.1.0/waf-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-30T05:23:24.533657853Z"
+generated: "2023-11-06T06:18:50.080217916Z"
